@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Pianeta {
 
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     // Nome del pianeta

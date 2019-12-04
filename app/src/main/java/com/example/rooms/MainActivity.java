@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         if(pianeti.size() != 0) {
             StringBuilder sb = new StringBuilder();
             for (Pianeta pianeta : pianeti) {
-                sb.append(pianeta.getNome() + System.getProperty("line.separator"));
+                sb.append(pianeta.getId() + " " + pianeta.getNome() + System.getProperty("line.separator"));
             }
             ((TextView) findViewById(R.id.testo)).setText(sb.toString());
         }
