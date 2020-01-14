@@ -7,25 +7,19 @@ import androidx.room.Room;
 
 import com.example.rooms.common.util.LogUtil;
 import com.example.rooms.model.Pianeta;
-import com.example.rooms.persistence.AppDatabase;
+import com.example.rooms.persistence.SistemaSolareDatabase;
 import com.example.rooms.persistence.dao.PianetaDao;
 
 import java.util.List;
 
 public class PianetaService {
 
-    private String DB_NAME = "pianeti";
+    private static Context context;
 
-    private Context context;
-
-    public PianetaService(){
-
-    }
 
     public PianetaService(Context context){
         this.context = context;
     }
-
 
     /**
      * Trova tutti i pianeti
@@ -33,24 +27,20 @@ public class PianetaService {
      * @return
      */
     public List<Pianeta> findAll(){
-
-
         // Crea il db
-        AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DB_NAME).allowMainThreadQueries().build();
+        SistemaSolareDatabase db = SistemaSolareDatabase.getDatabase(context);
         // Recupera il DAO
         PianetaDao dao = db.pianetaDao();
         // Recupera tutti i pianeti
-        db.close();
         return dao.findAll();
     }
 
 
     public void insert(Pianeta pianeta){
         // Crea il db
-        AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DB_NAME).allowMainThreadQueries().build();
+        SistemaSolareDatabase db = SistemaSolareDatabase.getDatabase(context);
         // Recupera il DAO
         PianetaDao dao = db.pianetaDao();
-
         dao.insert(pianeta);
     }
 
@@ -58,7 +48,7 @@ public class PianetaService {
         /*
         LogUtil.debug("Inizio creazione pianeti nel database");
         // Crea il db
-        AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DB_NAME).allowMainThreadQueries().build();
+        SistemaSolareDatabase db = Room.databaseBuilder(context, SistemaSolareDatabase.class, DB_NAME).allowMainThreadQueries().build();
         // Recupera il DAO
         PianetaDao dao = db.pianetaDao();
         dao.insert(pianeti);
@@ -72,7 +62,7 @@ public class PianetaService {
             protected Void doInBackground(Void... voids) {
                 LogUtil.debug("Inizio creazione pianeti nel database");
                 // Crea il db
-                AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, DB_NAME).build();
+                SistemaSolareDatabase db = SistemaSolareDatabase.getDatabase(context);
                 // Recupera il DAO
                 PianetaDao dao = db.pianetaDao();
                 dao.insert(pianeti);
@@ -84,4 +74,25 @@ public class PianetaService {
 
 
     }
+
+
+    private static class FindAllQueryTask extends AsyncTask<Void, Void, List<Pianeta>>{
+
+        @Override
+        protected List<Pianeta> doInBackground(Void... voids) {
+            // Crea il db
+            SistemaSolareDatabase db = SistemaSolareDatabase.getDatabase(context);
+            // Recupera il DAO
+            PianetaDao dao = db.pianetaDao();
+            // Recupera tutti i pianeti
+            db.close();
+            return dao.findAll();
+        }
+
+        @Override
+        protected void onPostExecute(List<Pianeta> pianetas) {
+            super.onPostExecute(pianetas);
+        }
+    }
+
 }

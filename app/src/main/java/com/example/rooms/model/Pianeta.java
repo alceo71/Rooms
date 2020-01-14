@@ -10,10 +10,10 @@ import androidx.room.PrimaryKey;
 public class Pianeta {
 
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     private int id;
 
     // Nome del pianeta
-    @ColumnInfo(name = "nome")
     private String nome;
 
     // Distanza dal sole in UA
@@ -29,11 +29,9 @@ public class Pianeta {
     private int rotazioneOre;
 
     // Massa in rapporto alla terra
-    @ColumnInfo(name = "massa")
     private double massa;
 
     // Diametro in rapporto alla terra
-    @ColumnInfo(name = "diametro")
     private double diametro;
 
     // Numero di satelliti

@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.rooms.model.Pianeta;
 
@@ -16,12 +17,15 @@ public interface PianetaDao {
     List<Pianeta> findAll();
 
     @Insert
-    Long insert(Pianeta pianeta);
+    void insert(Pianeta pianeta);
 
     @Insert
     void insert(List<Pianeta> pianeti);
 
     @Delete
     void delete(Pianeta pianeta);
+
+    @Update
+    void update(Pianeta pianeta);
 
 }
