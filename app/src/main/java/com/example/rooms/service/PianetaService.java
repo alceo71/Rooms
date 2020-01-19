@@ -35,6 +35,34 @@ public class PianetaService {
         return dao.findAll();
     }
 
+    /**
+     * Trova tutti i pianeti con almeno un satellite
+     *
+     * @return
+     */
+    public List<Pianeta> findConSatelliti(){
+        // Crea il db
+        SistemaSolareDatabase db = SistemaSolareDatabase.getDatabase(context);
+        // Recupera il DAO
+        PianetaDao dao = db.pianetaDao();
+        // Recupera tutti i pianeti
+        return dao.findConSatelliti();
+    }
+
+    /**
+     * Trova tutti i pianeti con almeno un satellite
+     *
+     * @return
+     */
+    public Pianeta getPerNome(String nome){
+        // Crea il db
+        SistemaSolareDatabase db = SistemaSolareDatabase.getDatabase(context);
+        // Recupera il DAO
+        PianetaDao dao = db.pianetaDao();
+        // Recupera tutti i pianeti
+        return dao.findPerNome(nome);
+    }
+
 
     public void insert(Pianeta pianeta){
         // Crea il db
@@ -45,18 +73,6 @@ public class PianetaService {
     }
 
     public void insert(final List<Pianeta> pianeti){
-        /*
-        LogUtil.debug("Inizio creazione pianeti nel database");
-        // Crea il db
-        SistemaSolareDatabase db = Room.databaseBuilder(context, SistemaSolareDatabase.class, DB_NAME).allowMainThreadQueries().build();
-        // Recupera il DAO
-        PianetaDao dao = db.pianetaDao();
-        dao.insert(pianeti);
-        db.close();
-        LogUtil.debug("Fine creazione pianeti nel database");
-        */
-
-
         new AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... voids) {
@@ -71,8 +87,6 @@ public class PianetaService {
                 return null;
             }
         }.execute();
-
-
     }
 
 

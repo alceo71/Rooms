@@ -19,18 +19,23 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
+        PianetaService service = new PianetaService(this);
+        Pianeta pianeta = service.getPerNome("terra");
+        LogUtil.debug("TERRA " + pianeta.getId());
 
+        // inizializzaPianeti();
 
         // datiPianeti();
         // inserisciLuna(3);
 
-
+/*
         PianetaConSatelliteService service = new PianetaConSatelliteService(this);
 
         List<PianetaConSatelliti> pianeti = service.findAll();
@@ -50,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.testo)).setText(sb.toString());
         }
         LogUtil.debug("numero pianeti " + pianeti.size());
+*/
+
 
         // Recupera tutti i pianeti
 
@@ -98,9 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void inserisciLuna(int idPianeta){
-
         Satellite satellite = new Satellite();
-
 
         satellite.setIdPianeta(idPianeta);
         satellite.setMassa(0.12);
@@ -108,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
 
         SatelliteService satelliteService = new SatelliteService(this);
         satelliteService.insert(satellite);
-
     }
 
 }

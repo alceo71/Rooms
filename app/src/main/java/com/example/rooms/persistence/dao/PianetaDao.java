@@ -16,6 +16,12 @@ public interface PianetaDao {
     @Query("SELECT * FROM pianeta")
     List<Pianeta> findAll();
 
+    @Query("SELECT * FROM pianeta WHERE numero_satelliti > 0")
+    List<Pianeta> findConSatelliti();
+
+    @Query("SELECT * FROM pianeta WHERE nome = :nome")
+    Pianeta findPerNome(String nome);
+
     @Insert
     void insert(Pianeta pianeta);
 
