@@ -6,6 +6,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.rooms.PianetiLoader;
+
 @Entity
 public class Pianeta {
 
@@ -40,6 +42,10 @@ public class Pianeta {
 
     @Ignore
     private boolean selezionato;
+
+    public Pianeta(){
+
+    }
 
     public Pianeta(String nome, double distanzaUA, int rivoluzioneGiorni, int rotazioneOre, double massa, double diametro, int numeroSatelliti) {
         this.nome = nome;

@@ -46,7 +46,14 @@ public class PianetaService {
         // Recupera il DAO
         PianetaDao dao = db.pianetaDao();
         // Recupera tutti i pianeti
-        return dao.findConSatelliti();
+        List<Pianeta> result = dao.findConSatelliti();
+
+
+
+
+
+
+        return result;
     }
 
     /**
@@ -64,12 +71,28 @@ public class PianetaService {
     }
 
 
-    public void insert(Pianeta pianeta){
+    public void insert(final Pianeta pianeta){
+        /*
         // Crea il db
         SistemaSolareDatabase db = SistemaSolareDatabase.getDatabase(context);
         // Recupera il DAO
         PianetaDao dao = db.pianetaDao();
         dao.insert(pianeta);
+         */
+
+       Runnable runnable = new Runnable() {
+            public void run() {
+                // Crea il db
+                SistemaSolareDatabase db = SistemaSolareDatabase.getDatabase(context);
+                // Recupera il DAO
+                PianetaDao dao = db.pianetaDao();
+                dao.insert(pianeta);
+            }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
+
     }
 
     public void insert(final List<Pianeta> pianeti){
@@ -90,23 +113,7 @@ public class PianetaService {
     }
 
 
-    private static class FindAllQueryTask extends AsyncTask<Void, Void, List<Pianeta>>{
 
-        @Override
-        protected List<Pianeta> doInBackground(Void... voids) {
-            // Crea il db
-            SistemaSolareDatabase db = SistemaSolareDatabase.getDatabase(context);
-            // Recupera il DAO
-            PianetaDao dao = db.pianetaDao();
-            // Recupera tutti i pianeti
-            db.close();
-            return dao.findAll();
-        }
 
-        @Override
-        protected void onPostExecute(List<Pianeta> pianetas) {
-            super.onPostExecute(pianetas);
-        }
-    }
 
 }

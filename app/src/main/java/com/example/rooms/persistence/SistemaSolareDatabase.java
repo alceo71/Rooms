@@ -30,7 +30,7 @@ public abstract class SistemaSolareDatabase extends RoomDatabase {
             synchronized (SistemaSolareDatabase.class){
                 if(instance == null){
                     // .allowMainThreadQueries() da non usare in produzione
-                    instance = Room.databaseBuilder(context.getApplicationContext(),SistemaSolareDatabase.class, DB_NAME).allowMainThreadQueries().build();
+                    instance = Room.databaseBuilder(context.getApplicationContext(),SistemaSolareDatabase.class, DB_NAME).build();
                 }
             }
         }
